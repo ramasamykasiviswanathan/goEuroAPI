@@ -29,7 +29,6 @@ public class GoEuroAPIImpl {
 	 * @throws IllegalAccessException
 	 */
 	public static void main(String[] args) throws IllegalAccessException {
-		
 		LOGGER.debug("Main Method.");
 		
 		if(ArrayUtils.isNotEmpty(args)){
