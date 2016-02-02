@@ -29,8 +29,7 @@ public class JavaBeansToCSV {
 		try (CSVPrinter csvPrinter = new CSVPrinter(new FileWriter(fileLocation), CSVFormat.EXCEL.withHeader(headers).withRecordSeparator("\n"))) {
 			informations.stream().forEach(information -> {
 					try {
-						List<Object> values = populateListValues(information); 
-						csvPrinter.printRecord(values);
+						csvPrinter.printRecord(populateListValues(information));
 					} catch (Exception e) {
 						LOGGER.error("an error has occurred in beanToCSVWriter method:",e);
 					}
