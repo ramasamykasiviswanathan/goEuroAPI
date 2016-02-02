@@ -40,6 +40,11 @@ public class JavaBeansToCSV {
 		}
 	}
 	
+	/**
+	 * This method populates the value present in the Java beans to the List Object.
+	 * @param information
+	 * @return
+	 */
 	private List<Object> populateListValues(final CityInformation information){
 		List<Object> values = new ArrayList<>(3);
 		values.add(information.get_id());
@@ -52,6 +57,11 @@ public class JavaBeansToCSV {
 		return values;
 	}
 	
+	/**
+	 * This method is used to remove the whitespace at the start and trail of the string.
+	 * @param value
+	 * @return
+	 */
 	private String stringSanitizing(final Object value)
 	{
 		return StringUtils.trimToEmpty(String.valueOf(value));
