@@ -29,8 +29,7 @@ public class JavaBeansToCSV {
 		try (CSVPrinter csvPrinter = new CSVPrinter(new FileWriter(fileLocation), CSVFormat.EXCEL.withHeader(headers).withRecordSeparator("\n"))) {
 			informations.stream().forEach(information -> {
 					try {
-						List<Object> values = populateListValues(information); 
-						csvPrinter.printRecord(values);
+						csvPrinter.printRecord(populateListValues(information));
 					} catch (Exception e) {
 						LOGGER.error("an error has occurred in beanToCSVWriter method:",e);
 					}
@@ -41,6 +40,11 @@ public class JavaBeansToCSV {
 		}
 	}
 	
+	/**
+	 * This method populates the value present in the Java beans to the List Object.
+	 * @param information
+	 * @return
+	 */
 	private List<Object> populateListValues(final CityInformation information){
 		List<Object> values = new ArrayList<>(3);
 		values.add(information.get_id());
@@ -53,6 +57,11 @@ public class JavaBeansToCSV {
 		return values;
 	}
 	
+	/**
+	 * This method is used to remove the whitespace at the start and trail of the string.
+	 * @param value
+	 * @return
+	 */
 	private String stringSanitizing(final Object value)
 	{
 		return StringUtils.trimToEmpty(String.valueOf(value));
