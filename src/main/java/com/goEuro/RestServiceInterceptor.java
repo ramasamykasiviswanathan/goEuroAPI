@@ -2,6 +2,7 @@ package com.goEuro;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ public class RestServiceInterceptor implements ClientHttpRequestInterceptor {
 			throws IOException {
 		logRequest(request);
 		LOGGER.debug("Body of the request message is: {}", body);
+		LOGGER.info("Unique ID for this service call is: {}",UUID.randomUUID());
 		long starTime = new Date().getTime();
 		ClientHttpResponse response = execution.execute(request, body);
 		LOGGER.debug("Total time taken for the service call is: {}ms", (new Date().getTime() - starTime));
