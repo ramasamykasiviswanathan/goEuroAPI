@@ -1,6 +1,7 @@
 package com.goEuro;
 
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
@@ -28,12 +29,8 @@ public class JavaBeansToCSV {
 		try (CSVPrinter csvPrinter = new CSVPrinter(new FileWriter(fileLocation), CSVFormat.EXCEL.withHeader(headers).withRecordSeparator("\n"))) {
 			informations.stream().forEach(information -> {
 					try {
-						csvPrinter.printRecord(stringSanitizing(information.get_id()),
-											   stringSanitizing(information.getFullName()),
-											   stringSanitizing(information.getType()),
-											   stringSanitizing(information.getGeo_position().getLatitude()),
-											   stringSanitizing(information.getGeo_position().getLongitude())
-								);
+						List<Object> values = populateListValues(information); 
+						csvPrinter.printRecord(values);
 					} catch (Exception e) {
 						LOGGER.error("an error has occurred in beanToCSVWriter method:",e);
 					}
@@ -42,6 +39,18 @@ public class JavaBeansToCSV {
 		} catch (Exception e) {
 			LOGGER.error("an error has occurred in beanToCSVWriter method:",e);
 		}
+	}
+	
+	private List<Object> populateListValues(final CityInformation information){
+		List<Object> values = new ArrayList<>(3);
+		values.add(information.get_id());
+		values.add(stringSanitizing(information.getFullName()));
+		values.add(stringSanitizing(information.getType()));
+		if(information.getGeo_position() != null){
+			values.add(information.getGeo_position().getLatitude());
+			values.add(information.getGeo_position().getLongitude());
+		}
+		return values;
 	}
 	
 	private String stringSanitizing(final Object value)
